@@ -1,17 +1,19 @@
 ﻿namespace Engine.ViewModels;
 using Engine.Models;
-
-class GameSession
+public class GameSession
 {
-    Player CurrentPlayer { get; set; }
+    public Player CurrentPlayer { get; set; }
 
-    GameSession()
+    public GameSession()
     {
         CurrentPlayer = new Player
         {
             Name = "Tylux",
             CharacterClass = "Fighter",
-            Gold = 1000000
+            HitPoints = 10,
+            Gold = 1000000,
+            ExperiencePoints = 0,
+            Level = 1
         };
     }
 }

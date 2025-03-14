@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Engine.ViewModels;
 
 namespace WpfUI;
 
@@ -7,8 +8,11 @@ namespace WpfUI;
 /// </summary>
 public partial class MainWindow : Window
 {
+    private GameSession _gameSession;
     public MainWindow()
     {
         InitializeComponent();
+        _gameSession = new GameSession();
+        DataContext = _gameSession;
     }
 }
