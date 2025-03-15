@@ -12,6 +12,7 @@ public class GameSession
     public Player CurrentPlayer { get; private set; }
     public Location CurrentLocation { get; private set; }
     public ObservableCollection<GameItem> Inventory { get; }
+    public ObservableCollection<QuestStatus> Quests { get; }
 
     public void MoveNorth() => Move(Direction.North);
     public void MoveEast() => Move(Direction.East);
@@ -20,7 +21,6 @@ public class GameSession
 
     public GameSession()
     {
-        Inventory = [];
         CurrentPlayer = new Player
         {
             Name = "Tylux",
@@ -28,14 +28,17 @@ public class GameSession
             HitPoints = 10,
             Gold = 1_000_000,
             ExperiencePoints = 0,
-            Level = 1
+            Level = 1,
+            Inventory = [],
+            Quests = []
         };
-
+        
         CurrentWorld = WorldFactory.CreateWorld()
             ?? throw new InvalidOperationException("World creation failed");
 
         CurrentLocation = CurrentWorld.LocationAt(0, -1)
             ?? throw new InvalidOperationException("Starting location invalid");
+        
     }
 
     private Location? _northLocation;
@@ -84,11 +87,23 @@ public class GameSession
         {
             CurrentLocation = newLocation;
             ResetAdjacentLocationsCache();
+            GivePlayerQuestsAtLocation();
         }
     }
 
     private void ResetAdjacentLocationsCache()
     {
         _northLocation = _eastLocation = _southLocation = _westLocation = null;
+    }
+
+    private void GivePlayerQuestsAtLocation()
+    {
+        foreach (Quest quest in CurrentLocation.QuestsAvailableHere)
+        {
+            if (!CurrentPlayer.Quests.Any(q => q.PlayerQuest.ID == quest.ID))
+            {
+                CurrentPlayer.Quests.Add(new QuestStatus(quest));
+            }
+        }
     }
 }
