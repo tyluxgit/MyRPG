@@ -2,10 +2,18 @@
 
 public class World
 {
-    private List<Location> _locations = [];
-    internal void AddLocation(int xCoordinate, int yCoordinate, string name, string description, string imageName)
+    private readonly Dictionary<(int, int), Location> _locations = new Dictionary<(int, int), Location>();
+
+    public void AddLocation(int xCoordinate, int yCoordinate, string name, string description, string imageName)
     {
-        Location loc = new()
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("Name cannot be null or empty", nameof(name));
+
+        var key = (xCoordinate, yCoordinate);
+        if (_locations.ContainsKey(key))
+            throw new ArgumentException($"Location at ({xCoordinate}, {yCoordinate}) already exists");
+
+        Location loc = new Location
         {
             XCoordinate = xCoordinate,
             YCoordinate = yCoordinate,
@@ -13,17 +21,17 @@ public class World
             Description = description,
             ImageName = imageName
         };
-        _locations.Add(loc);
+        _locations.Add(key, loc);
     }
+
     public Location LocationAt(int xCoordinate, int yCoordinate)
     {
-        foreach (Location loc in _locations)
-        {
-            if (loc.XCoordinate == xCoordinate && loc.YCoordinate == yCoordinate)
-            {
-                return loc;
-            }
-        }
-        return null;
+        var key = (xCoordinate, yCoordinate);
+        return _locations.TryGetValue(key, out var location) ? location : null;
+    }
+
+    public bool TryGetLocation(int xCoordinate, int yCoordinate, out Location location)
+    {
+        return _locations.TryGetValue((xCoordinate, yCoordinate), out location);
     }
 }
