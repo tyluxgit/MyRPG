@@ -12,6 +12,11 @@ public class GameSession
     public Player CurrentPlayer { get; private set; }
     public Location CurrentLocation { get; private set; }
     public ObservableCollection<GameItem> Inventory { get; }
+    public void MoveNorth() => Move(Direction.North);
+    public void MoveEast() => Move(Direction.East);
+    public void MoveSouth() => Move(Direction.South);
+    public void MoveWest() => Move(Direction.West);
+
 
     public GameSession()
     {
@@ -34,16 +39,17 @@ public class GameSession
     }
 
     [DependsOn(nameof(CurrentLocation))]
-    public bool HasLocationToNorth => GetAdjacentLocation(0, 1) != null;
+    public bool HasLocationToNorth => GetAdjacentLocation(0, 1) is not null;
 
     [DependsOn(nameof(CurrentLocation))]
-    public bool HasLocationToEast => GetAdjacentLocation(1, 0) != null;
+    public bool HasLocationToEast => GetAdjacentLocation(1, 0) is not null;
 
     [DependsOn(nameof(CurrentLocation))]
-    public bool HasLocationToSouth => GetAdjacentLocation(0, -1) != null;
+    public bool HasLocationToSouth => GetAdjacentLocation(0, -1) is not null;
 
     [DependsOn(nameof(CurrentLocation))]
-    public bool HasLocationToWest => GetAdjacentLocation(-1, 0) != null;
+    public bool HasLocationToWest => GetAdjacentLocation(-1, 0) is not null;
+
 
     private Location GetAdjacentLocation(int deltaX, int deltaY)
     {
@@ -72,4 +78,4 @@ public class GameSession
     }
 }
 
-public enum Direction { North, East, South, West }
+
