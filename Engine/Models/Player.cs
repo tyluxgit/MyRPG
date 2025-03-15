@@ -11,12 +11,8 @@ public class Player
     public int ExperiencePoints { get; set; }
     public int Level { get; set; }
     public int Gold { get; set; }
-    public ObservableCollection<GameItem>? Inventory { get; set; }
-    public ObservableCollection<QuestStatus>? Quests { get; set; }
-    public Player()
-    {
-        Inventory = [];
-        Quests = [];
-    }
+    public ObservableCollection<GameItem> Inventory { get; set; } = [];
+    public ObservableCollection<QuestStatus> Quests { get; set; } = [];
+
 }
 

@@ -1,7 +1,6 @@
 ﻿using Engine.Models;
 using Engine.Factories;
 using PropertyChanged;
-using System.Collections.ObjectModel;
 
 namespace Engine.ViewModels;
 
@@ -11,8 +10,6 @@ public class GameSession
     public World CurrentWorld { get; private set; }
     public Player CurrentPlayer { get; private set; }
     public Location CurrentLocation { get; private set; }
-    public ObservableCollection<GameItem> Inventory { get; }
-    public ObservableCollection<QuestStatus> Quests { get; }
 
     public void MoveNorth() => Move(Direction.North);
     public void MoveEast() => Move(Direction.East);
@@ -29,8 +26,6 @@ public class GameSession
             Gold = 1_000_000,
             ExperiencePoints = 0,
             Level = 1,
-            Inventory = [],
-            Quests = []
         };
         
         CurrentWorld = WorldFactory.CreateWorld()

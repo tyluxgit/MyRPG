@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Engine.ViewModels;assembly=Engine"
         mc:Ignorable="d"
         Title="Tyl's Awesome Game" Height="768" Width="1024">
-    
+
     <Window.DataContext>
         <local:GameSession/>
     </Window.DataContext>
@@ -110,7 +110,9 @@
                     </DataGrid>
                 </TabItem>
                 <TabItem Header="Quests">
-                    <DataGrid ItemsSource="{Binding CurrentPlayer.Quests}"
+                    <DataGrid ItemsSource="{Binding CurrentPlayer.Quests, 
+                        UpdateSourceTrigger=PropertyChanged,
+                        NotifyOnSourceUpdated=True}"
                               AutoGenerateColumns="False"
                               HeadersVisibility="Column">
                         <DataGrid.Columns>
@@ -124,8 +126,8 @@
                     </DataGrid>
                 </TabItem>
             </TabControl>
-    </Grid>
-    <Grid Grid.Row="2" Grid.Column="1"
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="1"
       Background="Lavender">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
