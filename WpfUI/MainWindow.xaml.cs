@@ -15,4 +15,9 @@ public partial class MainWindow : Window
         _gameSession = new GameSession();
         DataContext = _gameSession;
     }
+    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+    {
+        _gameSession.CurrentPlayer.ExperiencePoints = _gameSession.CurrentPlayer.ExperiencePoints + 10;
+    }
+
 }

@@ -1,5 +1,6 @@
 ﻿namespace Engine.ViewModels;
 using Engine.Models;
+
 public class GameSession
 {
     public Player CurrentPlayer { get; set; }
@@ -15,5 +16,7 @@ public class GameSession
             ExperiencePoints = 0,
             Level = 1
         };
+
     }
 }
+
