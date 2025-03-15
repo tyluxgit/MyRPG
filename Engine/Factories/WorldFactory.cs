@@ -1,9 +1,9 @@
 ﻿using Engine.Models;
 
 namespace Engine.Factories;
-internal class WorldFactory
+internal static class WorldFactory
 {
-    internal World CreateWorld()
+    internal static World CreateWorld()
     {
         World newWorld = new();
         newWorld.AddLocation(-2, -1, "Farmer's Field",
