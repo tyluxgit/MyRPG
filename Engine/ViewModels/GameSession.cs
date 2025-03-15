@@ -12,11 +12,11 @@ public class GameSession
     public Player CurrentPlayer { get; private set; }
     public Location CurrentLocation { get; private set; }
     public ObservableCollection<GameItem> Inventory { get; }
+
     public void MoveNorth() => Move(Direction.North);
     public void MoveEast() => Move(Direction.East);
     public void MoveSouth() => Move(Direction.South);
     public void MoveWest() => Move(Direction.West);
-
 
     public GameSession()
     {
@@ -38,21 +38,30 @@ public class GameSession
             ?? throw new InvalidOperationException("Starting location invalid");
     }
 
-    [DependsOn(nameof(CurrentLocation))]
-    public bool HasLocationToNorth => GetAdjacentLocation(0, 1) is not null;
+    private Location? _northLocation;
+    private Location? _eastLocation;
+    private Location? _southLocation;
+    private Location? _westLocation;
 
     [DependsOn(nameof(CurrentLocation))]
-    public bool HasLocationToEast => GetAdjacentLocation(1, 0) is not null;
+    public bool HasLocationToNorth => (_northLocation ??= GetAdjacentLocation(0, 1)) is not null;
 
     [DependsOn(nameof(CurrentLocation))]
-    public bool HasLocationToSouth => GetAdjacentLocation(0, -1) is not null;
+    public bool HasLocationToEast => (_eastLocation ??= GetAdjacentLocation(1, 0)) is not null;
 
     [DependsOn(nameof(CurrentLocation))]
-    public bool HasLocationToWest => GetAdjacentLocation(-1, 0) is not null;
+    public bool HasLocationToSouth => (_southLocation ??= GetAdjacentLocation(0, -1)) is not null;
 
+    [DependsOn(nameof(CurrentLocation))]
+    public bool HasLocationToWest => (_westLocation ??= GetAdjacentLocation(-1, 0)) is not null;
 
-    private Location GetAdjacentLocation(int deltaX, int deltaY)
+    private Location? GetAdjacentLocation(int deltaX, int deltaY)
     {
+        if (CurrentWorld is null || CurrentLocation is null)
+        {
+            return null;
+        }
+
         return CurrentWorld.LocationAt(
             CurrentLocation.XCoordinate + deltaX,
             CurrentLocation.YCoordinate + deltaY
@@ -74,8 +83,12 @@ public class GameSession
         if (newLocation != null)
         {
             CurrentLocation = newLocation;
+            ResetAdjacentLocationsCache();
         }
     }
+
+    private void ResetAdjacentLocationsCache()
+    {
+        _northLocation = _eastLocation = _southLocation = _westLocation = null;
+    }
 }
-
-
