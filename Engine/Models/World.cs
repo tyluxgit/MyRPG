@@ -2,7 +2,7 @@
 
 public class World
 {
-    private readonly Dictionary<(int, int), Location> _locations = new Dictionary<(int, int), Location>();
+    private readonly Dictionary<(int, int), Location> _locations = [];
 
     public void AddLocation(int xCoordinate, int yCoordinate, string name, string description, string imageName)
     {
@@ -13,7 +13,7 @@ public class World
         if (_locations.ContainsKey(key))
             throw new ArgumentException($"Location at ({xCoordinate}, {yCoordinate}) already exists");
 
-        Location loc = new Location
+        Location loc = new()
         {
             XCoordinate = xCoordinate,
             YCoordinate = yCoordinate,

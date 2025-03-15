@@ -3,9 +3,6 @@ using Engine.ViewModels;
 
 namespace WpfUI;
 
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
 public partial class MainWindow : Window
 {
     private GameSession _gameSession;

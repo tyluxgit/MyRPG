@@ -33,10 +33,12 @@ internal static class QuestFactory
     // Retrieve a quest by its ID
     internal static Quest GetQuestByID(int id)
     {
+#pragma warning disable CS8600 // Conversion de littéral ayant une valeur null ou d'une éventuelle valeur null en type non-nullable.
         if (_quests.TryGetValue(id, out Quest quest))
         {
             return quest;
         }
+#pragma warning restore CS8600 // Conversion de littéral ayant une valeur null ou d'une éventuelle valeur null en type non-nullable.
         throw new KeyNotFoundException($"Quest with ID {id} not found in the quest dictionary.");
     }
 }

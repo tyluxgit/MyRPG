@@ -21,7 +21,7 @@ public class GameSession
     public GameSession()
     {
         Inventory = [];
-        CurrentPlayer = new Player(Inventory)
+        CurrentPlayer = new Player
         {
             Name = "Tylux",
             CharacterClass = "Fighter",
