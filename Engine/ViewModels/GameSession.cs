@@ -1,6 +1,7 @@
 ﻿using Engine.Models;
 using Engine.Factories;
 using PropertyChanged;
+using System.Collections.ObjectModel;
 
 namespace Engine.ViewModels;
 
@@ -10,10 +11,12 @@ public class GameSession
     public World CurrentWorld { get; set; }
     public Player CurrentPlayer { get; set; }
     public Location CurrentLocation { get; set; }
+    public ObservableCollection<GameItem> Inventory { get; private set; }
 
     public GameSession()
     {
-        CurrentPlayer = new Player
+        Inventory = [];
+        CurrentPlayer = new Player(Inventory)
         {
             Name = "Tylux",
             CharacterClass = "Fighter",
@@ -23,7 +26,7 @@ public class GameSession
             Level = 1
         };
         CurrentWorld = WorldFactory.CreateWorld();
-        CurrentLocation = CurrentWorld.LocationAt(0, 0);
+        CurrentLocation = CurrentWorld.LocationAt(0, -1);
     }
     public bool HasLocationToNorth
     {
