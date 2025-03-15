@@ -1,5 +1,7 @@
-﻿namespace Engine.Models;
+﻿using PropertyChanged;
+namespace Engine.Models;
 
+[AddINotifyPropertyChangedInterface]
 public class Player
 {
     public string Name { get; set; }
@@ -8,6 +10,5 @@ public class Player
     public int ExperiencePoints { get; set; }
     public int Level { get; set; }
     public int Gold { get; set; }
-
 
 }
