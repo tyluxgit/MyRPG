@@ -7,7 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Locations\FarmFields.jpg" />
+    <None Remove="Images\Locations\Farmhouse.jpg" />
+    <None Remove="Images\Locations\HerbalistsGarden.jpg" />
+    <None Remove="Images\Locations\HerbalistsHut.jpg" />
     <None Remove="Images\Locations\Home.png" />
+    <None Remove="Images\Locations\SpiderForest.jpg" />
+    <None Remove="Images\Locations\TownGate.jpg" />
+    <None Remove="Images\Locations\TownSquare.jpg" />
+    <None Remove="Images\Locations\Trader.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,7 +23,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\Locations\FarmFields.jpg" />
+    <Resource Include="Images\Locations\Farmhouse.jpg" />
+    <Resource Include="Images\Locations\HerbalistsGarden.jpg" />
+    <Resource Include="Images\Locations\HerbalistsHut.jpg" />
     <Resource Include="Images\Locations\Home.png" />
+    <Resource Include="Images\Locations\SpiderForest.jpg" />
+    <Resource Include="Images\Locations\TownGate.jpg" />
+    <Resource Include="Images\Locations\TownSquare.jpg" />
+    <Resource Include="Images\Locations\Trader.jpg" />
   </ItemGroup>
 
 </Project>
