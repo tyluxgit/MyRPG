@@ -10,12 +10,17 @@ public class GameSession
     public World CurrentWorld { get; private set; }
     public Player CurrentPlayer { get; private set; }
     public Location CurrentLocation { get; private set; }
-
+    public Monster? CurrentMonster { get; set; }
     public void MoveNorth() => Move(Direction.North);
     public void MoveEast() => Move(Direction.East);
     public void MoveSouth() => Move(Direction.South);
     public void MoveWest() => Move(Direction.West);
 
+    private Location? _northLocation;
+    private Location? _eastLocation;
+    private Location? _southLocation;
+    private Location? _westLocation;
+    public Monster? _currentMonster;
     public GameSession()
     {
         CurrentPlayer = new Player
@@ -36,23 +41,15 @@ public class GameSession
         
     }
 
-    private Location? _northLocation;
-    private Location? _eastLocation;
-    private Location? _southLocation;
-    private Location? _westLocation;
-
     [DependsOn(nameof(CurrentLocation))]
     public bool HasLocationToNorth => (_northLocation ??= GetAdjacentLocation(0, 1)) is not null;
-
     [DependsOn(nameof(CurrentLocation))]
     public bool HasLocationToEast => (_eastLocation ??= GetAdjacentLocation(1, 0)) is not null;
-
     [DependsOn(nameof(CurrentLocation))]
     public bool HasLocationToSouth => (_southLocation ??= GetAdjacentLocation(0, -1)) is not null;
-
     [DependsOn(nameof(CurrentLocation))]
     public bool HasLocationToWest => (_westLocation ??= GetAdjacentLocation(-1, 0)) is not null;
-
+    public bool HasMonster => CurrentMonster != null;
     private Location? GetAdjacentLocation(int deltaX, int deltaY)
     {
         if (CurrentWorld is null || CurrentLocation is null)
@@ -83,6 +80,7 @@ public class GameSession
             CurrentLocation = newLocation;
             ResetAdjacentLocationsCache();
             GivePlayerQuestsAtLocation();
+            GetMonsterAtLocation();
         }
     }
 
@@ -100,5 +98,10 @@ public class GameSession
                 CurrentPlayer.Quests.Add(new QuestStatus(quest));
             }
         }
+    }
+
+    private void GetMonsterAtLocation()
+    {
+        CurrentMonster = CurrentLocation.GetMonster();
     }
 }

@@ -17,7 +17,7 @@ public static class MonsterFactory
                     (9003, 25),
                     (9004, 75)
                 }),
-            3 => CreateMonster("Giant Spider", "GiantSpider.png", 10, 10, 10, 3, new (int itemID, int chance)[]
+            3 => CreateMonster("Giant Spider", "Spider.png", 10, 10, 10, 3, new (int itemID, int chance)[]
                 {
                     (9005, 25),
                     (9006, 75)
