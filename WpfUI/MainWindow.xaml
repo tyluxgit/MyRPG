@@ -34,19 +34,19 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="225" />
+            <RowDefinition Height="200" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="300" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <!-- Menu Label -->
         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-               Content="Menu" Background="LightGray" Padding="{StaticResource InnerMargin}" />
+               Content="Menu" Background="AntiqueWhite" Padding="{StaticResource InnerMargin}" />
 
         <!-- Informations sur le joueur -->
-        <Grid Grid.Row="1" Grid.Column="0" Background="#D99748" Margin="{StaticResource OuterMargin}">
+        <Grid Grid.Row="1" Grid.Column="0" Background="#ead595" Margin="{StaticResource OuterMargin}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -75,7 +75,7 @@
         </Grid>
 
         <!-- Zone Principale : Localisation et Monstre -->
-        <Grid Grid.Row="1" Grid.Column="1" Background="#73614C" Margin="{StaticResource OuterMargin}">
+        <Grid Grid.Row="1" Grid.Column="1" Background="#bff2bf" Margin="{StaticResource OuterMargin}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
@@ -87,8 +87,8 @@
 
             <!-- Localisation -->
             <Border Grid.Row="0" Grid.Column="1"
-                    BorderBrush="BurlyWood" BorderThickness="3" Margin="{StaticResource OuterMargin}">
-                <Grid Margin="{StaticResource InnerMargin}">
+                    BorderBrush="#95eaaa" BorderThickness="5" Margin="{StaticResource OuterMargin}">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
@@ -97,7 +97,7 @@
                     <TextBlock Grid.Row="0" HorizontalAlignment="Center"
                                Text="{Binding CurrentLocation.Name}" FontWeight="Bold" />
                     <Image Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
-                           Source="{Binding CurrentLocation.ImageName}" Stretch="Uniform" />
+                           Source="{Binding CurrentLocation.ImageName}" Stretch="UniformToFill"/>
                     <TextBlock Grid.Row="2" HorizontalAlignment="Center"
                                Text="{Binding CurrentLocation.Description}" TextWrapping="Wrap" Margin="{StaticResource InnerMargin}" />
                 </Grid>
@@ -127,8 +127,8 @@
         </Grid>
 
         <!-- Bas de l'IU : Inventaire, Quêtes -->
-        <Grid Grid.Row="2" Grid.Column="0" Background="#F2F2F2" Margin="{StaticResource OuterMargin}">
-            <TabControl Margin="{StaticResource OuterMargin}">
+        <Grid Grid.Row="2" Grid.Column="0" Background="#e59980" Margin="{StaticResource OuterMargin}">
+            <TabControl FontSize="16" Margin="{StaticResource OuterMargin}">
                 <TabItem Header="Inventory">
                     <DataGrid ItemsSource="{Binding CurrentPlayer.Inventory}"
                               AutoGenerateColumns="False" HeadersVisibility="Column">
@@ -145,9 +145,9 @@
                               AutoGenerateColumns="False" HeadersVisibility="Column">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name"
-                                                Binding="{Binding PlayerQuest.Name}" Width="*" />
+                                                Binding="{Binding PlayerQuest.Name}" Width="Auto" />
                             <DataGridTextColumn Header="Done?"
-                                                Binding="{Binding IsCompleted}" Width="Auto" />
+                                                Binding="{Binding IsCompleted}" Width="*" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
@@ -155,7 +155,7 @@
         </Grid>
 
         <!-- Panneau de Navigation -->
-        <Grid Grid.Row="2" Grid.Column="1" Background="#262626" Margin="{StaticResource OuterMargin}">
+        <Grid Grid.Row="2" Grid.Column="1" Background="#80cce5" Margin="{StaticResource OuterMargin}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
