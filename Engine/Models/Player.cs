@@ -20,5 +20,20 @@ public class Player
     {
         Inventory.Add(item);
     }
+    public void RemoveItemFromInventory(GameItem item)
+    {
+        Inventory.Remove(item);
+    }
+    public bool HasAllTheseItems(List<ItemQuantity> items)
+    {
+        foreach (ItemQuantity item in items)
+        {
+            if (Inventory.Count(i => i.ItemTypeID == item.ItemID) < item.Quantity)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }
 

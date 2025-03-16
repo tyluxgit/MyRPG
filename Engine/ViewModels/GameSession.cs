@@ -17,6 +17,7 @@ public class GameSession
     public Location CurrentLocation { get; set; }
     public Monster? CurrentMonster { get; set; }
     public Weapon? CurrentWeapon { get; set; }
+    public Trader? CurrentTrader { get; set; }
     public void MoveNorth() => Move(Direction.North);
     public void MoveEast() => Move(Direction.East);
     public void MoveSouth() => Move(Direction.South);
@@ -27,6 +28,7 @@ public class GameSession
     private Location? _southLocation;
     private Location? _westLocation;
     public Monster? _currentMonster;
+    public Trader? _currentTrader;
 
     #endregion
     #region Game Session Constructor
@@ -37,7 +39,7 @@ public class GameSession
             Name = "Tylux",
             CharacterClass = "Fighter",
             HitPoints = 10,
-            Gold = 1_000_000,
+            Gold = 0,
             ExperiencePoints = 0,
             Level = 1,
         };
@@ -67,6 +69,7 @@ public class GameSession
     [DependsOn(nameof(CurrentLocation))]
     public bool HasLocationToWest => (_westLocation ??= GetAdjacentLocation(-1, 0)) is not null;
     public bool HasMonster => CurrentMonster != null;
+    public bool HasTrader => CurrentTrader != null;
     #endregion
     #region Game Actions
     private Location? GetAdjacentLocation(int deltaX, int deltaY)
@@ -97,9 +100,11 @@ public class GameSession
         if (newLocation != null)
         {
             CurrentLocation = newLocation;
+            CurrentTrader = CurrentLocation?.TraderHere;
             ResetAdjacentLocationsCache();
             GivePlayerQuestsAtLocation();
             GetMonsterAtLocation();
+            CompleteQuestsAtLocation();
         }
     }
     #endregion
@@ -116,10 +121,73 @@ public class GameSession
             if (!CurrentPlayer.Quests.Any(q => q.PlayerQuest.ID == quest.ID))
             {
                 CurrentPlayer.Quests.Add(new QuestStatus(quest));
+
+                // Fonction helper pour formater les objets requis
+                static string FormatItemQuantity(ItemQuantity itemQuantity)
+                {
+                    var item = ItemFactory.CreateGameItem(itemQuantity.ItemID);
+                    return $"{itemQuantity.Quantity}x {item.Name}";
+                }
+
+                // Formatage des objectifs
+                string requirements = quest.ItemsToComplete.Count != 0
+                    ? string.Join("\n- ", quest.ItemsToComplete.Select(FormatItemQuantity))
+                    : "No required items";
+
+                // Formatage des récompenses
+                string itemRewards = quest.RewardItems.Count != 0
+                    ? string.Join("\n- ", quest.RewardItems.Select(FormatItemQuantity))
+                    : "No item reward";
+
+                // Construction du message
+                RaiseMessage(
+                    $"New quest : {quest.Name}\n" +
+                    $"Description : {quest.Description}\n\n" +
+                    $"Objectives :\n- {requirements}\n\n" +
+                    $"Rewards :\n" +
+                    $"- XP : {quest.RewardExperiencePoints}\n" +
+                    $"- Gold : {quest.RewardGold}\n" +
+                    $"- {itemRewards}");
             }
         }
     }
-
+    private void CompleteQuestsAtLocation()
+    {
+        foreach (Quest quest in CurrentLocation.QuestsAvailableHere)
+        {
+            QuestStatus? questToComplete =
+                CurrentPlayer.Quests.FirstOrDefault(q => q.PlayerQuest.ID == quest.ID & !q.IsCompleted);
+            if (questToComplete != null)
+            {
+                if (CurrentPlayer.HasAllTheseItems(quest.ItemsToComplete))
+                {
+                    // Remove the quest completion items from the player's inventory
+                    foreach (ItemQuantity itemQuantity in quest.ItemsToComplete)
+                    {
+                        for (int i = 0; i < itemQuantity.Quantity; i++)
+                        {
+                            CurrentPlayer.RemoveItemFromInventory(CurrentPlayer.Inventory.First(item => item.ItemTypeID == itemQuantity.ItemID));
+                        }
+                    }
+                    RaiseMessage("");
+                    RaiseMessage($"You completed the '{quest.Name}' quest");
+                    // Give the player the quest rewards
+                    CurrentPlayer.ExperiencePoints += quest.RewardExperiencePoints;
+                    RaiseMessage($"You receive {quest.RewardExperiencePoints} experience points");
+                    CurrentPlayer.Gold += quest.RewardGold;
+                    RaiseMessage($"You receive {quest.RewardGold} gold");
+                    foreach (ItemQuantity itemQuantity in quest.RewardItems)
+                    {
+                        GameItem rewardItem = ItemFactory.CreateGameItem(itemQuantity.ItemID);
+                        CurrentPlayer.AddItemToInventory(rewardItem);
+                        RaiseMessage($"You receive a {rewardItem.Name}");
+                    }
+                    // Mark the Quest as completed
+                    questToComplete.IsCompleted = true;
+                }
+            }
+        }
+    }
     public void GetMonsterAtLocation()
     {
         CurrentMonster = CurrentLocation.GetMonster();

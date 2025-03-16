@@ -23,7 +23,8 @@ internal static class WorldFactory
             "Farmer's House",
             "This is the house of your neighbor, Farmer Ted.",
             "Farmhouse.jpg");
-
+        newWorld.LocationAt(-1, -1).TraderHere =
+                TraderFactory.GetTraderByName("Farmer Ted");
         // Home (0, -1)
         newWorld.AddLocation(
             0, -1,
@@ -37,7 +38,8 @@ internal static class WorldFactory
             "Trading Shop",
             "The shop of Susan, the trader.",
             "Trader.jpg");
-
+        newWorld.LocationAt(-1, 0).TraderHere =
+                TraderFactory.GetTraderByName("Susan");
         // Town square (0, 0)
         newWorld.AddLocation(
             0, 0,
@@ -69,6 +71,8 @@ internal static class WorldFactory
             "HerbalistsHut.jpg");
         var herbalistsHut = newWorld.LocationAt(0, 1);
         herbalistsHut?.QuestsAvailableHere.Add(QuestFactory.GetQuestByID(1));
+        newWorld.LocationAt(0, 1).TraderHere =
+                TraderFactory.GetTraderByName("Pete the Herbalist");
 
         // Herbalist's garden (0, 2)
         newWorld.AddLocation(

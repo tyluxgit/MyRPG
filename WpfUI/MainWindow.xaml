@@ -239,6 +239,10 @@
                         Click="OnClick_MoveWest"
                         IsEnabled="{Binding HasLocationToWest}"
                         Content="West"/>
+                    <Button Grid.Row="1" Grid.Column="1" 
+                            Style="{StaticResource NavigationButtonStyle}"
+                            IsEnabled="{Binding HasTrader}"
+                            Content="Trade"/>
                     <Button Grid.Row="1" Grid.Column="2" 
                         Style="{StaticResource NavigationButtonStyle}"
                         Click="OnClick_MoveEast"

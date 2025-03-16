@@ -11,6 +11,7 @@ public class Location
     public required string ImageName { get; set; }
     public List<Quest> QuestsAvailableHere { get; set; } = [];
     public List<MonsterEncounter> MonstersHere { get; set; } = [];
+    public Trader TraderHere { get; set; }
 
     /// <summary>
     /// Ajoute un monstre à la liste des monstres disponibles ou met à jour la chance d'apparition si le monstre existe déjà.
