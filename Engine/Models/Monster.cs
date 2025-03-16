@@ -4,14 +4,13 @@ using PropertyChanged;
 namespace Engine.Models;
 
 [AddINotifyPropertyChangedInterface]
-public class Monster(string name, string imageName,
-               int maximumHitPoints, int hitPoints,
+public class Monster(string name, string imageName, 
+               int hitPoints,
                int minimumDamage, int maximumDamage,
                int rewardExperiencePoints, int rewardGold)
 {
     public string Name { get; private set; } = name;
     public string ImageName { get; set; } = $"pack://application:,,,/Engine;component/Images/Monsters/{imageName}";
-    public int MaximumHitPoints { get; private set; } = maximumHitPoints;
     public int MinimumDamage { get; set; } = minimumDamage;
     public int MaximumDamage { get; set; } = maximumDamage;
     public int HitPoints { get; set; } = hitPoints;

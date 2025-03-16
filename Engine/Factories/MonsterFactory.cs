@@ -5,17 +5,17 @@ public static class MonsterFactory
 {
     public static Monster GetMonster(int monsterID) => monsterID switch
     {
-        1 => CreateMonster("Snake", "Snake.png", 4, 4, 1, 2, 5, 1, lootItems:
+        1 => CreateMonster("Snake", "Snake.png", 4, 1, 2, 5, 1, lootItems:
             [
                 (9001, 25),
                 (9002, 75)
             ]),
-        2 => CreateMonster("Rat", "Rat.png", 5, 5, 1, 2, 5, 1, lootItems:
+        2 => CreateMonster("Rat", "Rat.png", 5, 1, 2, 5, 1, lootItems:
             [
                 (9003, 25),
                 (9004, 75)
             ]),
-        3 => CreateMonster("Giant Spider", "Spider.png", 10, 10, 2, 4, 10, 3, lootItems:
+        3 => CreateMonster("Giant Spider", "Spider.png", 10, 2, 4, 10, 3, lootItems:
             [
                 (9005, 25),
                 (9006, 75)
@@ -29,7 +29,6 @@ public static class MonsterFactory
     private static Monster CreateMonster(
         string name,
         string imageName,
-        int maximumHitPoints,
         int hitPoints,
         int minimumDamage,
         int maximumDamage,
@@ -37,7 +36,7 @@ public static class MonsterFactory
         int rewardGold,
         (int itemID, int chance)[] lootItems)
     {
-        Monster monster = new(name, imageName, maximumHitPoints, hitPoints, minimumDamage, maximumDamage, rewardExperiencePoints, rewardGold);
+        Monster monster = new(name, imageName, hitPoints, minimumDamage, maximumDamage, rewardExperiencePoints, rewardGold);
 
         foreach (var (itemID, chance) in lootItems)
         {

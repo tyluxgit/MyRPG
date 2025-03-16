@@ -29,9 +29,4 @@ public class World
         var key = (xCoordinate, yCoordinate);
         return _locations.TryGetValue(key, out var location) ? location : null;
     }
-
-    public bool TryGetLocation(int xCoordinate, int yCoordinate, out Location? location)
-    {
-        return _locations.TryGetValue((xCoordinate, yCoordinate), out location);
-    }
 }
