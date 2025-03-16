@@ -26,6 +26,7 @@
             <Setter Property="Height" Value="Auto" />
             <Setter Property="Width" Value="Auto" />
             <Setter Property="Margin" Value="{StaticResource OuterMargin}" />
+            <Setter Property="BorderThickness" Value="3"/>
         </Style>
     </Window.Resources>
 
@@ -74,8 +75,9 @@
             <Label Grid.Row="5" Grid.Column="1" Content="{Binding CurrentPlayer.Level}" />
         </Grid>
 
-        <!-- Zone Principale : Localisation et Monstre -->
-        <Grid Grid.Row="1" Grid.Column="1" Background="#bff2bf" Margin="{StaticResource OuterMargin}">
+            
+            <!-- Zone Principale : Localisation et Monstre -->
+        <Grid Grid.Row="1" Grid.Column="1" Background="#bff2bf" Margin="{StaticResource OuterMargin} ">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
@@ -84,10 +86,10 @@
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
-
+            
             <!-- Localisation -->
             <Border Grid.Row="0" Grid.Column="1"
-                    BorderBrush="#95eaaa" BorderThickness="5" Margin="{StaticResource OuterMargin}">
+                     BorderBrush="#95eaaa" BorderThickness="5">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -103,11 +105,39 @@
                 </Grid>
             </Border>
 
+            <!-- Game Messages -->
+            <Border Grid.Row="0" Grid.Column="0"
+                    Grid.RowSpan="2"
+                    BorderBrush="Gainsboro"
+                    BorderThickness="5" >
+                
+                <RichTextBox x:Name="GameMessages"
+                             Background="Transparent"
+                             IsReadOnly="True"
+                             Cursor="Arrow"
+                             VerticalScrollBarVisibility="Auto"
+                             BorderThickness="0">
+                    <RichTextBox.Resources>
+                        <Style TargetType="{x:Type Paragraph}">
+                            <Setter Property="Margin" Value="0"/>
+                        </Style>
+                    </RichTextBox.Resources>
+                </RichTextBox>
+
+            </Border>
             <!-- Informations sur le Monstre -->
             <Border Grid.Row="1" Grid.Column="1"
-                    BorderBrush="LightCoral" BorderThickness="5" Margin="{StaticResource OuterMargin}"
+                    BorderBrush="IndianRed" BorderThickness="8,20,8,0" CornerRadius="150" 
                     Visibility="{Binding HasMonster, Converter={StaticResource BooleanToVisibility}}">
-                <Grid Margin="{StaticResource InnerMargin}">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1.15">
+                        <GradientStop Color="WhiteSmoke" Offset="0.0" />
+                        <GradientStop Color="IndianRed" Offset="0.15" />
+                        <GradientStop Color="DarkRed" Offset="0.5" />
+                        <GradientStop Color="WhiteSmoke" Offset="0.825" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
