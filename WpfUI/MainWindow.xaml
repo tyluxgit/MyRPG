@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Engine.ViewModels;assembly=Engine"
         mc:Ignorable="d"
         FontSize="20"
-        Title="Tyl's Awesome Game" Height="768" Width="1024">
+        Title="Tyl's Awesome Game" Height="Auto" Width="Auto">
         
 
     <Window.DataContext>
