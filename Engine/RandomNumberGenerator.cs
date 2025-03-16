@@ -35,7 +35,7 @@ public static class RandomNumberGenerator
     /// Version simple utilisant System.Random.
     /// Si vous préférez cette version, vous pouvez renommer SimpleNumberBetween en NumberBetween.
     /// </summary>
-    private static readonly Random _simpleGenerator = new Random();
+    private static readonly Random _simpleGenerator = new();
     public static int SimpleNumberBetween(int minimumValue, int maximumValue)
     {
         return _simpleGenerator.Next(minimumValue, maximumValue + 1);
