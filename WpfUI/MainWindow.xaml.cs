@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using Engine.ViewModels;
+using Engine.EventArgs;
+using System.Windows.Documents;
 
 namespace WpfUI;
 
@@ -10,6 +12,7 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         _gameSession = new GameSession();
+        _gameSession.OnMessageRaised += OnGameMessageRaised;
         DataContext = _gameSession;
     }
     private void OnClick_MoveNorth(object sender, RoutedEventArgs e)
@@ -28,5 +31,9 @@ public partial class MainWindow : Window
     {
         _gameSession.MoveSouth();
     }
-
+    private void OnGameMessageRaised(object? sender, GameMessageEventArgs e)
+    {
+        GameMessages.Document.Blocks.Add(new Paragraph(new Run(e.Message)));
+        GameMessages.ScrollToEnd();
+    }
 }

@@ -1,12 +1,15 @@
 ﻿using Engine.Models;
 using Engine.Factories;
 using PropertyChanged;
+using Engine.EventArgs;
 
 namespace Engine.ViewModels;
 
 [AddINotifyPropertyChangedInterface]
 public class GameSession
 {
+    public event EventHandler<GameMessageEventArgs>? OnMessageRaised;
+    #region Properties
     public World CurrentWorld { get; private set; }
     public Player CurrentPlayer { get; private set; }
     public Location CurrentLocation { get; private set; }
@@ -21,6 +24,7 @@ public class GameSession
     private Location? _southLocation;
     private Location? _westLocation;
     public Monster? _currentMonster;
+    #endregion
     public GameSession()
     {
         CurrentPlayer = new Player
@@ -83,7 +87,10 @@ public class GameSession
             GetMonsterAtLocation();
         }
     }
-
+    private void RaiseMessage(string message)
+    {
+        OnMessageRaised?.Invoke(this, new GameMessageEventArgs(message));
+    }
     private void ResetAdjacentLocationsCache()
     {
         _northLocation = _eastLocation = _southLocation = _westLocation = null;
@@ -103,5 +110,7 @@ public class GameSession
     private void GetMonsterAtLocation()
     {
         CurrentMonster = CurrentLocation.GetMonster();
+        if (CurrentMonster is not null)
+            RaiseMessage($"You see a {CurrentMonster.Name} here!");
     }
 }

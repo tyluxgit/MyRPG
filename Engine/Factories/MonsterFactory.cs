@@ -3,28 +3,25 @@ namespace Engine.Factories;
 
 public static class MonsterFactory
 {
-    public static Monster GetMonster(int monsterID)
+    public static Monster GetMonster(int monsterID) => monsterID switch
     {
-        return monsterID switch
-        {
-            1 => CreateMonster("Snake", "Snake.png", 4, 4, 5, 1, new (int itemID, int chance)[]
-                {
+        1 => CreateMonster("Snake", "Snake.png", 4, 4, 5, 1, lootItems:
+            [
                     (9001, 25),
                     (9002, 75)
-                }),
-            2 => CreateMonster("Rat", "Rat.png", 5, 5, 5, 1, new (int itemID, int chance)[]
-                {
-                    (9003, 25),
+            ]),
+        2 => CreateMonster("Rat", "Rat.png", 5, 5, 5, 1, lootItems:
+            [
+                (9003, 25),
                     (9004, 75)
-                }),
-            3 => CreateMonster("Giant Spider", "Spider.png", 10, 10, 10, 3, new (int itemID, int chance)[]
-                {
-                    (9005, 25),
+            ]),
+        3 => CreateMonster("Giant Spider", "Spider.png", 10, 10, 10, 3, lootItems:
+            [
+                (9005, 25),
                     (9006, 75)
-                }),
-            _ => throw new ArgumentException($"MonsterType '{monsterID}' does not exist", nameof(monsterID))
-        };
-    }
+            ]),
+        _ => throw new ArgumentException($"MonsterType '{monsterID}' does not exist", nameof(monsterID))
+    };
 
     /// <summary>
     /// Crée un monstre avec les paramètres spécifiés et lui ajoute le loot selon les pourcentages définis.
@@ -40,9 +37,9 @@ public static class MonsterFactory
     {
         Monster monster = new(name, imageName, maximumHitPoints, hitPoints, rewardExperiencePoints, rewardGold);
 
-        foreach (var loot in lootItems)
+        foreach (var (itemID, chance) in lootItems)
         {
-            AddLootItem(monster, loot.itemID, loot.chance);
+            AddLootItem(monster, itemID, chance);
         }
 
         return monster;
