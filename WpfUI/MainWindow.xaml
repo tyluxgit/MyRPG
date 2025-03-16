@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Engine.ViewModels;assembly=Engine"
         mc:Ignorable="d"
+        FontSize="20"
         Title="Tyl's Awesome Game" Height="768" Width="1024">
+        
 
     <Window.DataContext>
         <local:GameSession/>
@@ -21,8 +23,8 @@
 
         <!-- Style partagé pour les boutons de navigation -->
         <Style x:Key="NavigationButtonStyle" TargetType="Button">
-            <Setter Property="Height" Value="25" />
-            <Setter Property="Width" Value="65" />
+            <Setter Property="Height" Value="Auto" />
+            <Setter Property="Width" Value="Auto" />
             <Setter Property="Margin" Value="{StaticResource OuterMargin}" />
         </Style>
     </Window.Resources>
@@ -41,10 +43,10 @@
 
         <!-- Menu Label -->
         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-               Content="Menu" Background="AliceBlue" Padding="{StaticResource InnerMargin}" />
+               Content="Menu" Background="LightGray" Padding="{StaticResource InnerMargin}" />
 
         <!-- Informations sur le joueur -->
-        <Grid Grid.Row="1" Grid.Column="0" Background="LightBlue" Margin="{StaticResource OuterMargin}">
+        <Grid Grid.Row="1" Grid.Column="0" Background="#D99748" Margin="{StaticResource OuterMargin}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -73,7 +75,7 @@
         </Grid>
 
         <!-- Zone Principale : Localisation et Monstre -->
-        <Grid Grid.Row="1" Grid.Column="1" Background="LightGoldenrodYellow" Margin="{StaticResource OuterMargin}">
+        <Grid Grid.Row="1" Grid.Column="1" Background="#73614C" Margin="{StaticResource OuterMargin}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
@@ -85,7 +87,7 @@
 
             <!-- Localisation -->
             <Border Grid.Row="0" Grid.Column="1"
-                    BorderBrush="LightGoldenrodYellow" BorderThickness="1" Margin="{StaticResource OuterMargin}">
+                    BorderBrush="BurlyWood" BorderThickness="3" Margin="{StaticResource OuterMargin}">
                 <Grid Margin="{StaticResource InnerMargin}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -125,7 +127,7 @@
         </Grid>
 
         <!-- Bas de l'IU : Inventaire, Quêtes -->
-        <Grid Grid.Row="2" Grid.Column="0" Background="BurlyWood" Margin="{StaticResource OuterMargin}">
+        <Grid Grid.Row="2" Grid.Column="0" Background="#F2F2F2" Margin="{StaticResource OuterMargin}">
             <TabControl Margin="{StaticResource OuterMargin}">
                 <TabItem Header="Inventory">
                     <DataGrid ItemsSource="{Binding CurrentPlayer.Inventory}"
@@ -153,7 +155,7 @@
         </Grid>
 
         <!-- Panneau de Navigation -->
-        <Grid Grid.Row="2" Grid.Column="1" Background="LightBlue" Margin="{StaticResource OuterMargin}">
+        <Grid Grid.Row="2" Grid.Column="1" Background="#262626" Margin="{StaticResource OuterMargin}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
