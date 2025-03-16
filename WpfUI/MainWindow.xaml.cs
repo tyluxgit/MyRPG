@@ -7,11 +7,10 @@ namespace WpfUI;
 
 public partial class MainWindow : Window
 {
-    private readonly GameSession _gameSession;
+    private readonly GameSession _gameSession = new();
     public MainWindow()
     {
         InitializeComponent();
-        _gameSession = new GameSession();
         _gameSession.OnMessageRaised += OnGameMessageRaised;
         DataContext = _gameSession;
     }
@@ -31,9 +30,14 @@ public partial class MainWindow : Window
     {
         _gameSession.MoveSouth();
     }
-    private void OnGameMessageRaised(object? sender, GameMessageEventArgs e)
+    private void OnClick_AttackMonster(object sender, RoutedEventArgs e)
+    {
+        _gameSession.AttackCurrentMonster();
+    }
+    public void OnGameMessageRaised(object? sender, GameMessageEventArgs e)
     {
         GameMessages.Document.Blocks.Add(new Paragraph(new Run(e.Message)));
         GameMessages.ScrollToEnd();
     }
+
 }

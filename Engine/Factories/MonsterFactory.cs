@@ -5,20 +5,20 @@ public static class MonsterFactory
 {
     public static Monster GetMonster(int monsterID) => monsterID switch
     {
-        1 => CreateMonster("Snake", "Snake.png", 4, 4, 5, 1, lootItems:
+        1 => CreateMonster("Snake", "Snake.png", 4, 4, 1, 2, 5, 1, lootItems:
             [
-                    (9001, 25),
-                    (9002, 75)
+                (9001, 25),
+                (9002, 75)
             ]),
-        2 => CreateMonster("Rat", "Rat.png", 5, 5, 5, 1, lootItems:
+        2 => CreateMonster("Rat", "Rat.png", 5, 5, 1, 2, 5, 1, lootItems:
             [
                 (9003, 25),
-                    (9004, 75)
+                (9004, 75)
             ]),
-        3 => CreateMonster("Giant Spider", "Spider.png", 10, 10, 10, 3, lootItems:
+        3 => CreateMonster("Giant Spider", "Spider.png", 10, 10, 2, 4, 10, 3, lootItems:
             [
                 (9005, 25),
-                    (9006, 75)
+                (9006, 75)
             ]),
         _ => throw new ArgumentException($"MonsterType '{monsterID}' does not exist", nameof(monsterID))
     };
@@ -31,11 +31,13 @@ public static class MonsterFactory
         string imageName,
         int maximumHitPoints,
         int hitPoints,
+        int minimumDamage,
+        int maximumDamage,
         int rewardExperiencePoints,
         int rewardGold,
         (int itemID, int chance)[] lootItems)
     {
-        Monster monster = new(name, imageName, maximumHitPoints, hitPoints, rewardExperiencePoints, rewardGold);
+        Monster monster = new(name, imageName, maximumHitPoints, hitPoints, minimumDamage, maximumDamage, rewardExperiencePoints, rewardGold);
 
         foreach (var (itemID, chance) in lootItems)
         {

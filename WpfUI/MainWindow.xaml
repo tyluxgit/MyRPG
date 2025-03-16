@@ -184,7 +184,7 @@
                 </TabItem>
             </TabControl>
         </Grid>
-
+        
         <!-- Panneau de Navigation -->
         <Grid Grid.Row="2" Grid.Column="1" Background="#80cce5" Margin="{StaticResource OuterMargin}">
             <Grid.RowDefinitions>
@@ -194,39 +194,63 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="255" />
             </Grid.ColumnDefinitions>
-            <Grid Grid.Row="0" Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <!-- Boutons de navigation avec Style appliqué -->
-                <Button Grid.Row="0" Grid.Column="1" 
+            <!-- Combat Controls -->
+                <Grid Grid.Row="0" Grid.Column="0"
+                  Visibility="{Binding HasMonster, Converter={StaticResource BooleanToVisibility}}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Grid.Row="0" Grid.Column="0"
+                          ItemsSource="{Binding CurrentPlayer.Weapons}"
+                          SelectedItem="{Binding CurrentWeapon}"
+                          DisplayMemberPath="Name"
+                          SelectedValuePath="ItemTypeID"/>
+                    <Button Grid.Row="0" Grid.Column="2"
+                        Content="Use"
+                        Click="OnClick_AttackMonster"/>
+                </Grid>
+                <!-- Movement Controls -->
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Row="0" Grid.Column="1" 
                         Style="{StaticResource NavigationButtonStyle}"
                         Click="OnClick_MoveNorth"
                         IsEnabled="{Binding HasLocationToNorth}"
                         Content="North"/>
-                <Button Grid.Row="1" Grid.Column="0" 
+                    <Button Grid.Row="1" Grid.Column="0" 
                         Style="{StaticResource NavigationButtonStyle}"
                         Click="OnClick_MoveWest"
                         IsEnabled="{Binding HasLocationToWest}"
                         Content="West"/>
-                <Button Grid.Row="1" Grid.Column="2" 
+                    <Button Grid.Row="1" Grid.Column="2" 
                         Style="{StaticResource NavigationButtonStyle}"
                         Click="OnClick_MoveEast"
                         IsEnabled="{Binding HasLocationToEast}"
                         Content="East"/>
-                <Button Grid.Row="2" Grid.Column="1" 
+                    <Button Grid.Row="2" Grid.Column="1" 
                         Style="{StaticResource NavigationButtonStyle}"
                         Click="OnClick_MoveSouth"
                         IsEnabled="{Binding HasLocationToSouth}"
                         Content="South"/>
+                </Grid>
+            
             </Grid>
-        </Grid>
     </Grid>
 </Window>

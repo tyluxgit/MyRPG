@@ -19,18 +19,18 @@ public class World
             YCoordinate = yCoordinate,
             Name = name,
             Description = description,
-            ImageName = imageName
+            ImageName = $"/Engine;component/Images/Locations/{imageName}"
         };
         _locations.Add(key, loc);
     }
 
-    public Location LocationAt(int xCoordinate, int yCoordinate)
+    public Location? LocationAt(int xCoordinate, int yCoordinate)
     {
         var key = (xCoordinate, yCoordinate);
         return _locations.TryGetValue(key, out var location) ? location : null;
     }
 
-    public bool TryGetLocation(int xCoordinate, int yCoordinate, out Location location)
+    public bool TryGetLocation(int xCoordinate, int yCoordinate, out Location? location)
     {
         return _locations.TryGetValue((xCoordinate, yCoordinate), out location);
     }
