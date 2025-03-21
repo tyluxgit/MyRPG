@@ -1,25 +1,52 @@
 ﻿using Engine.Models;
-namespace Engine.Factories;
 
+namespace Engine.Factories;
 public static class MonsterFactory
 {
     public static Monster GetMonster(int monsterID) => monsterID switch
     {
-        1 => CreateMonster("Snake", "Snake.png", 4, 1, 2, 5, 1, lootItems:
-            [
-                (9001, 25),
-                (9002, 75)
-            ]),
-        2 => CreateMonster("Rat", "Rat.png", 5, 1, 2, 5, 1, lootItems:
-            [
-                (9003, 25),
-                (9004, 75)
-            ]),
-        3 => CreateMonster("Giant Spider", "Spider.png", 10, 2, 4, 10, 3, lootItems:
-            [
-                (9005, 25),
-                (9006, 75)
-            ]),
+        1 => CreateMonster(
+                name: "Snake",
+                imageName: "Snake.png",
+                hitPoints: 4,
+                minimumDamage: 1,
+                maximumDamage: 2,
+                rewardExperiencePoints: 5,
+                rewardGold: 1,
+                lootItems:
+                [
+                    (9001, 25),
+                    (9002, 75)
+                ]
+             ),
+        2 => CreateMonster(
+                name: "Rat",
+                imageName: "Rat.png",
+                hitPoints: 5,
+                minimumDamage: 1,
+                maximumDamage: 2,
+                rewardExperiencePoints: 5,
+                rewardGold: 1,
+                lootItems:
+                [
+                    (9003, 25),
+                    (9004, 75)
+                ]
+             ),
+        3 => CreateMonster(
+                name: "Giant Spider",
+                imageName: "Spider.png",
+                hitPoints: 10,
+                minimumDamage: 2,
+                maximumDamage: 4,
+                rewardExperiencePoints: 10,
+                rewardGold: 3,
+                lootItems:
+                [
+                    (9005, 25),
+                    (9006, 75)
+                ]
+             ),
         _ => throw new ArgumentException($"MonsterType '{monsterID}' does not exist", nameof(monsterID))
     };
 
@@ -36,8 +63,10 @@ public static class MonsterFactory
         int rewardGold,
         (int itemID, int chance)[] lootItems)
     {
+        // Crée le monstre avec les propriétés de base.
         Monster monster = new(name, imageName, hitPoints, minimumDamage, maximumDamage, rewardExperiencePoints, rewardGold);
 
+        // Ajoute les items de loot en fonction des chances.
         foreach (var (itemID, chance) in lootItems)
         {
             AddLootItem(monster, itemID, chance);

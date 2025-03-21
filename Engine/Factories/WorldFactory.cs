@@ -85,6 +85,10 @@ internal static class WorldFactory
         World world, int xCoordinate, int yCoordinate,
         string name, string description, string imageName)
     {
+        // Optionnel : ajouter des vérifications sur les paramètres
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("Le nom ne peut être vide.", nameof(name));
+
         world.AddLocation(xCoordinate, yCoordinate, name, description, imageName);
         return world.LocationAt(xCoordinate, yCoordinate);
     }
