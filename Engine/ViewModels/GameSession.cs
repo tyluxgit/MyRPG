@@ -1,9 +1,8 @@
-﻿using Engine.Models;
+﻿using Engine.EventArgs;
 using Engine.Factories;
+using Engine.Models;
 using PropertyChanged;
-using Engine.EventArgs;
 using System.Windows.Input;
-using System.Windows;
 
 namespace Engine.ViewModels;
 
@@ -50,7 +49,7 @@ public class GameSession
             ExperiencePoints = 0,
             Level = 1,
         };
-        
+
         CurrentWorld = WorldFactory.CreateWorld()
             ?? throw new InvalidOperationException("World creation failed");
 

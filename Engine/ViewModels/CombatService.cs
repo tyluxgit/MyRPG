@@ -1,6 +1,6 @@
-﻿using Engine.Models;
+﻿using Engine.EventArgs;
 using Engine.Factories;
-using Engine.EventArgs;
+using Engine.Models;
 
 namespace Engine.ViewModels;
 

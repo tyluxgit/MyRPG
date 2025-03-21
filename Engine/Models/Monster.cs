@@ -1,10 +1,10 @@
-﻿using System.Collections.ObjectModel;
-using PropertyChanged;
+﻿using PropertyChanged;
+using System.Collections.ObjectModel;
 
 namespace Engine.Models;
 
 [AddINotifyPropertyChangedInterface]
-public class Monster(string name, string imageName, 
+public class Monster(string name, string imageName,
                int hitPoints,
                int minimumDamage, int maximumDamage,
                int rewardExperiencePoints, int rewardGold)
