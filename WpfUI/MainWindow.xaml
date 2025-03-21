@@ -215,7 +215,8 @@
                           SelectedValuePath="ItemTypeID"/>
                     <Button Grid.Row="0" Grid.Column="2"
                         Content="Use"
-                        Click="OnClick_AttackMonster"/>
+                        Command="{Binding AttackCommand}"
+                        CommandParameter="{Binding}"/>
                 </Grid>
                 <!-- Movement Controls -->
                 <Grid Grid.Row="0" Grid.Column="1">
@@ -231,26 +232,32 @@
                     </Grid.ColumnDefinitions>
                     <Button Grid.Row="0" Grid.Column="1" 
                         Style="{StaticResource NavigationButtonStyle}"
-                        Click="OnClick_MoveNorth"
+                        Command="{Binding MoveNorthCommand}"
+                        CommandParameter="{Binding}"
                         IsEnabled="{Binding HasLocationToNorth}"
                         Content="North"/>
                     <Button Grid.Row="1" Grid.Column="0" 
                         Style="{StaticResource NavigationButtonStyle}"
-                        Click="OnClick_MoveWest"
+                        Command="{Binding MoveWestCommand}"
+                        CommandParameter="{Binding}"
                         IsEnabled="{Binding HasLocationToWest}"
                         Content="West"/>
                     <Button Grid.Row="1" Grid.Column="1" 
                             Style="{StaticResource NavigationButtonStyle}"
+                            Command="{Binding SellCommand}"
+                            CommandParameter="{Binding}"
                             IsEnabled="{Binding HasTrader}"
                             Content="Trade"/>
                     <Button Grid.Row="1" Grid.Column="2" 
                         Style="{StaticResource NavigationButtonStyle}"
-                        Click="OnClick_MoveEast"
+                        Command="{Binding MoveEastCommand}"
+                        CommandParameter="{Binding}"
                         IsEnabled="{Binding HasLocationToEast}"
                         Content="East"/>
                     <Button Grid.Row="2" Grid.Column="1" 
                         Style="{StaticResource NavigationButtonStyle}"
-                        Click="OnClick_MoveSouth"
+                        Command="{Binding MoveSouthCommand}"
+                        CommandParameter="{Binding}"
                         IsEnabled="{Binding HasLocationToSouth}"
                         Content="South"/>
                 </Grid>

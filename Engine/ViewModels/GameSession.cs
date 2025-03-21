@@ -2,6 +2,8 @@
 using Engine.Factories;
 using PropertyChanged;
 using Engine.EventArgs;
+using System.Windows.Input;
+using System.Windows;
 
 namespace Engine.ViewModels;
 
@@ -18,6 +20,11 @@ public class GameSession
     public Monster? CurrentMonster { get; set; }
     public Weapon? CurrentWeapon { get; set; }
     public Trader? CurrentTrader { get; set; }
+    public ICommand AttackCommand { get; }
+    public ICommand MoveNorthCommand { get; }
+    public ICommand MoveEastCommand { get; }
+    public ICommand MoveSouthCommand { get; }
+    public ICommand MoveWestCommand { get; }
     public void MoveNorth() => Move(Direction.North);
     public void MoveEast() => Move(Direction.East);
     public void MoveSouth() => Move(Direction.South);
@@ -55,7 +62,13 @@ public class GameSession
             CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(1001));
         }
         CombatService.OnMessageRaised += RaiseMessage;
-
+        // Initialisation des commandes
+        AttackCommand = new RelayCommand(param => CombatService.AttackMonster(this),
+                                          param => CurrentMonster != null && CurrentWeapon != null);
+        MoveNorthCommand = new RelayCommand(param => Move(Direction.North));
+        MoveEastCommand = new RelayCommand(param => Move(Direction.East));
+        MoveSouthCommand = new RelayCommand(param => Move(Direction.South));
+        MoveWestCommand = new RelayCommand(param => Move(Direction.West));
 
     }
     #endregion
